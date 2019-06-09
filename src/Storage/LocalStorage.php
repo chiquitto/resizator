@@ -9,13 +9,12 @@ use Intervention\Image\Image;
 class LocalStorage extends AbstractStorage
 {
 
-    private $path;
+    protected $path;
 
-    public function __construct(Img $img)
+    public function __construct(Img $img, $path)
     {
         parent::__construct($img);
-
-        $this->path = __DIR__;
+        $this->setPath($path);
     }
 
     public function parseAbsolutePath(array $params = [], $useCache = true) {
@@ -36,5 +35,15 @@ class LocalStorage extends AbstractStorage
             mkdir($dir, 0777, true);
         }
     }
+
+    /**
+     * @param mixed $path
+     */
+    public function setPath($path): void
+    {
+        $this->path = $path;
+    }
+
+
 
 }

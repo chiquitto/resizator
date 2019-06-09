@@ -8,6 +8,7 @@ use Intervention\Image\ImageManagerStatic;
 class Resizator
 {
     public static $families = [];
+    public static $defaultStorage;
 
     /**
      * @param $idFamily

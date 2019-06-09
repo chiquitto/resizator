@@ -43,7 +43,7 @@ class Img
         $this->filters = $args['filters'] ?? [];
         $this->original = $args['original'] ?? null;
 
-        $this->storage = new LocalStorage($this);
+        $this->storage = new Resizator::$defaultStorage($this);
     }
 
     /**
