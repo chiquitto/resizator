@@ -13,7 +13,6 @@ FILTERS - Lista de filtros
 */
 
 use Chiquitto\Resizator\Storage\AbstractStorage;
-use Chiquitto\Resizator\Storage\LocalStorage;
 use Intervention\Image\Image;
 
 /**
@@ -42,8 +41,6 @@ class Img
         $this->filename = $args['filename'];
         $this->filters = $args['filters'] ?? [];
         $this->original = $args['original'] ?? null;
-
-        $this->storage = new Resizator::$defaultStorage($this);
     }
 
     /**
@@ -66,12 +63,20 @@ class Img
      * Return absolute path in storage
      */
     public function parseAbsolutePath(array $params = []) {
-        return $this->storage->parseAbsolutePath($params);
+        return $this->getStorage()->parseAbsolutePath($params);
     }
 
     public function save(Image $image, array $params)
     {
-        $this->storage->save($image, $params);
+        $this->getStorage()->save($image, $params);
+    }
+
+    private function getStorage(): AbstractStorage
+    {
+        if ($this->storage === null) {
+            $this->storage = new Resizator::$defaultStorage($this);
+        }
+        return $this->storage;
     }
 
 
