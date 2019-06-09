@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: alisson
- * Date: 08/06/19
- * Time: 21:45
- */
 
 namespace Chiquitto\Resizator\Storage;
 

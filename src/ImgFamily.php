@@ -5,7 +5,7 @@ namespace Chiquitto\Resizator;
 
 use Chiquitto\Resizator\Storage\LocalStorage;
 
-class ImgList
+class ImgFamily extends \ArrayObject
 {
     /**
      * @var Img[]
@@ -20,7 +20,7 @@ class ImgList
     /**
      * @param $idFamily
      *
-     * @return ImgList
+     * @return ImgFamily
      */
     public static function factoryFamily($idFamily)
     {
@@ -42,7 +42,7 @@ class ImgList
             }
         }
 
-        return new ImgList($r);
+        return new ImgFamily($r);
     }
 
     /**

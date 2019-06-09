@@ -9,16 +9,15 @@ use Intervention\Image\Image;
 class LocalStorage extends AbstractStorage
 {
 
-    protected $path;
+    protected $basePath;
 
-    public function __construct(Img $img, $path)
+    public function __construct(Img $img)
     {
         parent::__construct($img);
-        $this->setPath($path);
     }
 
     public function parseAbsolutePath(array $params = [], $useCache = true) {
-        return $this->path . '/' . $this->parseFilename($params, $useCache);
+        return $this->basePath . '/' . $this->parseFilename($params, $useCache);
     }
 
     public function save(Image $image, array $params)
@@ -37,11 +36,11 @@ class LocalStorage extends AbstractStorage
     }
 
     /**
-     * @param mixed $path
+     * @param mixed $basePath
      */
-    public function setPath($path): void
+    public function setBasePath($basePath): void
     {
-        $this->path = $path;
+        $this->basePath = $basePath;
     }
 
 

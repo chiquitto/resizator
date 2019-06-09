@@ -12,23 +12,18 @@ class Resizator
 
     /**
      * @param $idFamily
-     * @return ImgList
+     * @return ImgFamily
      */
     public static function factoryFamily($idFamily)
     {
-        return ImgList::factoryFamily($idFamily);
+        return ImgFamily::factoryFamily($idFamily);
     }
 
-    public static function generateThumbs($pathImg, ImgList $imgList, array $params)
+    public static function generateThumbs($pathImg, ImgFamily $imgList, array $params)
     {
-        $newParams = [];
-        foreach ($params as $k => $v) {
-            $newParams['{' . $k . '}'] = $v;
-        }
-
         foreach ($imgList->getList() as $key => $img) {
             /* @var $img Img */
-            self::generateThumb($pathImg, $img, $newParams);
+            self::generateThumb($pathImg, $img, $params);
         }
 
         return true;

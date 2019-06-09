@@ -55,6 +55,14 @@ class Img
     }
 
     /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    /**
      * Return absolute path in storage
      */
     public function parseAbsolutePath(array $params = []) {
