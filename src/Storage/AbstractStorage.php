@@ -14,6 +14,8 @@ abstract class AbstractStorage
      */
     private $img;
 
+    private $dir = '';
+
     abstract public function parseAbsolutePath(array $params = []);
 
     public function __construct(Img $img)
@@ -21,10 +23,30 @@ abstract class AbstractStorage
         $this->img = $img;
     }
 
+    abstract public function save(Image $image, array $params);
+
     public function parseFilename(array $params = []) {
         return strtr($this->img->getFilename(), $params);
     }
 
-    abstract public function save(Image $image, array $params);
+    public function parseDirectory(array $params = []) {
+        return $this->getDir() . '/' . $this->parseFilename($params);
+    }
+
+    /**
+     * @return string
+     */
+    public function getDir(): string
+    {
+        return $this->dir;
+    }
+
+    /**
+     * @param string $dir
+     */
+    public function setDir(string $dir): void
+    {
+        $this->dir = trim($dir, '/');
+    }
 
 }

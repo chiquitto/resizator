@@ -13,6 +13,7 @@ FILTERS - Lista de filtros
 */
 
 use Chiquitto\Resizator\Storage\AbstractStorage;
+use Chiquitto\Resizator\Storage\PublicAccessStorage;
 use Intervention\Image\Image;
 
 /**
@@ -31,7 +32,7 @@ class Img
     private $original;
 
     /**
-     * @var AbstractStorage
+     * @var AbstractStorage|PublicAccessStorage
      */
     private $storage;
 
@@ -66,12 +67,23 @@ class Img
         return $this->getStorage()->parseAbsolutePath($params);
     }
 
+    public function parsePublicPath(array $params = []) {
+        return $this->getStorage()->parsePublicPath($params);
+    }
+
+    public function parseDirectory(array $params = []) {
+        return $this->getStorage()->parseDirectory($params);
+    }
+
     public function save(Image $image, array $params)
     {
         $this->getStorage()->save($image, $params);
     }
 
-    private function getStorage(): AbstractStorage
+    /**
+     * @return AbstractStorage|PublicAccessStorage
+     */
+    private function getStorage()
     {
         if ($this->storage === null) {
             $this->storage = new Resizator::$defaultStorage($this);

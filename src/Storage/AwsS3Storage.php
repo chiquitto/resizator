@@ -28,7 +28,7 @@ abstract class AwsS3Storage extends AbstractStorage
 
     public function parseAbsolutePath(array $params = [])
     {
-        return $this->parseFilename($params);
+        return $this->parseDirectory($params);
     }
 
     /**
