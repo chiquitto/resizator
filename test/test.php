@@ -5,10 +5,12 @@ use Chiquitto\Resizator\ImgFamily;
 use Chiquitto\Resizator\Resizator;
 
 require __DIR__ . '/../vendor/autoload.php';
-require __DIR__ . '/TestStorage.php';
+require __DIR__ . '/LocalTestStorage.php';
+require __DIR__ . '/AwsS3TestStorage.php';
 
-Resizator::$families = require __DIR__ . '/config.php';
-Resizator::$defaultStorage = TestStorage::class;
+Resizator::$families = require __DIR__ . '/img.config.php';
+// Resizator::$defaultStorage = LocalTestStorage::class;
+Resizator::$defaultStorage = AwsS3TestStorage::class;
 
 /** @var ImgFamily $family */
 $family = Resizator::factoryFamily('post');

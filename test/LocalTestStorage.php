@@ -2,7 +2,7 @@
 
 use Chiquitto\Resizator\Storage\LocalStorage;
 
-class TestStorage extends LocalStorage
+class LocalTestStorage extends LocalStorage
 {
 
     public function __construct(\Chiquitto\Resizator\Img $img)
