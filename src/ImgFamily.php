@@ -12,9 +12,9 @@ class ImgFamily extends \ArrayObject
      */
     private $list = [];
 
-    function __construct(array $imgList)
+    function __construct(array $list)
     {
-        $this->list = $imgList;
+        $this->list = $list;
     }
 
     /**

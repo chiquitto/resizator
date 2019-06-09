@@ -3,6 +3,7 @@
 namespace Chiquitto\Resizator;
 
 
+use Chiquitto\Resizator\Filter\AbstractFilter;
 use Intervention\Image\ImageManagerStatic;
 
 class Resizator
@@ -19,9 +20,9 @@ class Resizator
         return ImgFamily::factoryFamily($idFamily);
     }
 
-    public static function generateThumbs($pathImg, ImgFamily $imgList, array $params)
+    public static function generateThumbs($pathImg, ImgFamily $imgFamily, array $params)
     {
-        foreach ($imgList->getList() as $key => $img) {
+        foreach ($imgFamily->getList() as $key => $img) {
             /* @var $img Img */
             self::generateThumb($pathImg, $img, $params);
         }
@@ -31,16 +32,17 @@ class Resizator
 
     private static function generateThumb($originPath, Img $img, array $params)
     {
-        $image = ImageManagerStatic::make($originPath);
+        $interventionImage = ImageManagerStatic::make($originPath);
 
         // apply filters
+        $img->applyFilters($interventionImage);
 
         // save
-        $img->save($image, $params);
+        $img->save($interventionImage, $params);
 
         // clean memory
-        $image->destroy();
-        unset($image);
+        $interventionImage->destroy();
+        unset($interventionImage);
 
         return true;
     }

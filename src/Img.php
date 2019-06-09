@@ -12,6 +12,7 @@ FILTERS - Lista de filtros
 
 */
 
+use Chiquitto\Resizator\Filter\AbstractFilter;
 use Chiquitto\Resizator\Storage\AbstractStorage;
 use Chiquitto\Resizator\Storage\PublicAccessStorage;
 use Intervention\Image\Image;
@@ -75,9 +76,9 @@ class Img
         return $this->getStorage()->parseDirectory($params);
     }
 
-    public function save(Image $image, array $params)
+    public function save(Image $interventionImage, array $params)
     {
-        $this->getStorage()->save($image, $params);
+        $this->getStorage()->save($interventionImage, $params);
     }
 
     /**
@@ -90,6 +91,15 @@ class Img
         }
         return $this->storage;
     }
+
+    public function applyFilters(Image $interventionImage) {
+        foreach ($this->filters as $filterConfig) {
+            $filter = AbstractFilter::getInstance($filterConfig['filter']);
+            $filter->run($interventionImage, $filterConfig['config']);
+        }
+    }
+
+
 
 
 }

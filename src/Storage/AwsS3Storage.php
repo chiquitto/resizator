@@ -15,13 +15,13 @@ abstract class AwsS3Storage extends AbstractStorage
     protected $region;
     private $s3Instance;
 
-    public function save(Image $image, array $params)
+    public function save(Image $interventionImage, array $params)
     {
         $absolutePath = $this->parseAbsolutePath($params);
         $this->getS3Instance()->putObject([
             'Bucket' => $this->bucketName,
             'Key' => $absolutePath,
-            'Body' => $image->stream('jpg')->getContents(),
+            'Body' => $interventionImage->stream('jpg')->getContents(),
             'ContentType' => 'image/jpeg', // $image->mime()
         ]);
     }

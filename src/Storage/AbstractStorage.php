@@ -23,7 +23,7 @@ abstract class AbstractStorage
         $this->img = $img;
     }
 
-    abstract public function save(Image $image, array $params);
+    abstract public function save(Image $interventionImage, array $params);
 
     public function parseFilename(array $params = []) {
         return strtr($this->img->getFilename(), $params);

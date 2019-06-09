@@ -10,8 +10,8 @@ return [
         'filename' => 'p/{idPost}g.jpg',
         'filters' => [
             [
-                'filter' => \Chiquitto\Resizator\Filter\ResizeOut::class,
-                'params' => [
+                'filter' => \Chiquitto\Resizator\Filter\ResizeOutFilter::class,
+                'config' => [
                     'height' => 300,
                     'width' => 300,
                 ]

@@ -20,11 +20,11 @@ abstract class LocalStorage extends AbstractStorage
         return $this->basePath . '/' . $this->parseDirectory($params);
     }
 
-    public function save(Image $image, array $params)
+    public function save(Image $interventionImage, array $params)
     {
         $absolutePath = $this->parseAbsolutePath($params);
         $this->checkDir($absolutePath);
-        $image->save($absolutePath);
+        $interventionImage->save($absolutePath);
     }
 
     private function checkDir($path)
