@@ -1,7 +1,7 @@
 {
     "name": "chiquitto/resizator",
     "description": "A library to manipulate your thumbnails",
-    "version": "1.0.0",
+    "version": "2.0.1",
     "keywords": ["thumbnail", "aws-s3"],
     "authors": [
         {
