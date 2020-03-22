@@ -1,30 +1,20 @@
 <?php
 
+
 namespace Chiquitto\Resizator\Storage;
 
-
 use Chiquitto\Resizator\Img;
-use Intervention\Image\Image;
+use Intervention\Image\Image as InterventionImage;
+
 
 abstract class LocalStorage extends AbstractStorage
 {
 
-    protected $basePath;
-
-    public function __construct(Img $img)
+    public function save(InterventionImage $interventionImage, Img $img, array $params)
     {
-        parent::__construct($img);
-    }
-
-    public function parseAbsolutePath(array $params = []) {
-        return $this->basePath . '/' . $this->parseDirectory($params);
-    }
-
-    public function save(Image $interventionImage, array $params)
-    {
-        $absolutePath = $this->parseAbsolutePath($params);
-        $this->checkDir($absolutePath);
-        $interventionImage->save($absolutePath);
+        $dest = $this->parsePrivateFileName($img, $params);
+        $this->checkDir($dest);
+        $interventionImage->save($dest);
     }
 
     private function checkDir($path)
@@ -34,15 +24,5 @@ abstract class LocalStorage extends AbstractStorage
             mkdir($dir, 0777, true);
         }
     }
-
-    /**
-     * @param mixed $basePath
-     */
-    public function setBasePath($basePath): void
-    {
-        $this->basePath = $basePath;
-    }
-
-
 
 }

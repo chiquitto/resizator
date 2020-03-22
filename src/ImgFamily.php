@@ -1,12 +1,14 @@
 <?php
 
+
 namespace Chiquitto\Resizator;
 
 
-use Chiquitto\Resizator\Storage\LocalStorage;
+use ArrayObject;
 
-class ImgFamily extends \ArrayObject
+class ImgFamily extends ArrayObject
 {
+
     /**
      * @var Img[]
      */
@@ -28,9 +30,9 @@ class ImgFamily extends \ArrayObject
 
         $r[$idFamily] = new Img([
                 'id' => $idFamily
-            ] + Resizator::$families[$idFamily]);
+            ] + Resizator::getFamilies()[$idFamily]);
 
-        foreach (Resizator::$families as $id => $img) {
+        foreach (Resizator::getFamilies() as $id => $img) {
             if (!isset($img['original'])) {
                 continue;
             }
