@@ -6,30 +6,29 @@ use Chiquitto\Resizator\Resizator;
 
 require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/LocalTestStorage.php';
-require __DIR__ . '/AwsS3TestStorage.php';
+// require __DIR__ . '/AwsS3TestStorage.php';
 
-Resizator::$families = require __DIR__ . '/img.config.php';
-Resizator::$defaultStorage = LocalTestStorage::class;
-// Resizator::$defaultStorage = AwsS3TestStorage::class;
+Resizator::setFamilies(require __DIR__ . '/img.config.php');
+Resizator::setDefaultStorage(LocalTestStorage::class);
 
 /** @var ImgFamily $family */
 $family = Resizator::factoryFamily('post');
 
-Resizator::generateThumbs(__DIR__ . '/php-1920x800.jpg', $family, [
-    '{idPost}' => 10
-]);
+$params = ['{idPost}' => 10];
+
+Resizator::generateThumbs(__DIR__ . '/php-1920x800.jpg', $family, $params);
+
+$sep = str_repeat('=', 10);
+$storage = Resizator::getStorage();
 
 foreach ($family->getList() as $item) {
     /** @var Img $item */
 
-    $sep = str_repeat('=', 10);
-
     echo <<<ECHO
 $sep
 ID: {$item->getId()}
-PATH.ABS: {$item->parseAbsolutePath(['{idPost}' => 10])}
-WEB.ABS: {$item->parsePublicPath(['{idPost}' => 10])}
-WEB.SITE: {$item->parseDirectory(['{idPost}' => 10])}
+PRIVATE: {$storage->parsePrivateFileName($item, $params)}
+PUBLIC: {$storage->parsePublicFileName($item, $params)}
 $sep
 
 
